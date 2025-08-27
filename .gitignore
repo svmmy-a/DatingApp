@@ -487,3 +487,5 @@ API/dating.db*
 # SSL keys
 client/ssl/
 *.pem
+# Ignore development appsettings file
+API/appsettings.Development.json
