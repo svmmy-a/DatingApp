@@ -12,19 +12,10 @@
         <input class="input w-full" name="email" [(ngModel)]="creds.email" placeholder="Email">
         <input class="input w-full" name="displayName" [(ngModel)]="creds.displayName" placeholder="Display name">
         <input type="password" class="input w-full" name="password" [(ngModel)]="creds.password" placeholder="Password">
-        <!--
-          Dropdown options are generated from membersFromHome(), which is a signal function from the parent.
-          @for is Angular's new loop syntax (like *ngFor). The value is the member's id.
-        -->
-        <select class="select w-full">
-            <option disabled selected>Pick a member</option>
-            @for (member of membersFromHome(); track $index) {
-                <option value={{member.id}}>{{ member.displayName }}</option>
-            }
-        </select>
+
         <div class="flex items-center justify-end gap-3">
             <!-- Cancel and Register buttons call methods in the component -->
-            <button class="btn">Cancel</button>
+            <button (click)="cancel()" type="button">Cancel</button>
             <button class="btn btn-primary" type="submit">Register</button>
         </div>
     </div>

@@ -3,9 +3,10 @@
 // Angular component for user registration form.
 // Receives member list from parent, collects user input, and will send to backend.
 // </summary>
-import { Component, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegisterCreds, User } from '../../../types/user';
+import { AccountService } from '../../../core/services/account-service';
 
 @Component({
   selector: 'app-register',
@@ -14,19 +15,26 @@ import { RegisterCreds, User } from '../../../types/user';
   styleUrl: './register.css'
 })
 export class Register {
-  // Input signal: gets member list from parent (Home)
-  membersFromHome = input.required<User[]>()
+private accountService = inject(AccountService);
+
+  cancelRegister = output<boolean>();
   // Holds registration form data
-  protected creds = {} as RegisterCreds;
+  protected creds = {} as RegisterCreds; 
 
   // Called when form is submitted
   register() {
     // TODO: Send creds to backend via AccountService
-    console.log(this.creds);
+    this.accountService.register(this.creds).subscribe({
+      next: response => {
+        console.log(response);
+        this.cancel();
+      },
+      error: error => console.log(error)
+    })
   }
 
   // Called when user cancels registration
   cancel() {
-    console.log('cancelled!');
+    this.cancelRegister.emit(false);
   }
 }
