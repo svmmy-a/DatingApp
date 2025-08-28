@@ -1,3 +1,10 @@
+<!--
+  Navigation bar template.
+  Shows login form if user is not logged in, or user info and logout if logged in.
+  Uses accountService.currentUser() signal to determine which UI to show.
+  Login form binds creds.email and creds.password to the component.
+  Logout button calls logout() in the component.
+-->
 <header class="p-3 w-full fixed top-0 z-50 bg-gradient-to-r from-primary to-black">
     <div class="flex align-middle items-center px-10 mx-auto gap-6">
         <a class=" flex items-center gap-3 max-h-16 text-white border-r-white border-r-2 pr-6">
@@ -15,6 +22,10 @@
             <a>Messages</a>
         </nav>
         <div class="flex align-middle ml-auto gap-3">
+            <!--
+              If user is logged in (accountService.currentUser() returns a user), show user info and logout.
+              Otherwise, show login form. This is controlled by the signal in the component.
+            -->
             @if (accountService.currentUser(); as user) {
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" 
@@ -28,6 +39,7 @@
                 </ul>
             </div>
             } @else {
+            <!-- Login form binds creds.email and creds.password to component, calls login() on submit -->
             <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
                 <input [(ngModel)]="creds.email" name="email" type="text" class="input" placeholder="Email">
                 <input [(ngModel)]="creds.password" name="password" type="password" class="input"

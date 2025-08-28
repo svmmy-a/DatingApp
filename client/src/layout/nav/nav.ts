@@ -1,3 +1,8 @@
+//
+// <summary>
+// Navigation bar component. Handles login/logout and displays user info.
+// Uses AccountService for authentication and signals for reactivity.
+// </summary>
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../core/services/account-service';
@@ -9,12 +14,16 @@ import { AccountService } from '../../core/services/account-service';
   styleUrl: './nav.css'
 })
 export class Nav {
+  // Inject AccountService for login/logout and user state
   protected accountService = inject(AccountService)
+  // Holds login form credentials
   protected creds: any = {}
 
+    // Called when login form is submitted
     login() {
       this.accountService.login(this.creds).subscribe({
         next: result => {
+          // On success, clear form
           console.log(result);
           this.creds = {};
         },
@@ -22,8 +31,8 @@ export class Nav {
       })
     }
 
+    // Logs out user
     logout() {
       this.accountService.logout();
     }
   }
- 

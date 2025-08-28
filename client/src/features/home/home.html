@@ -1,3 +1,9 @@
+<!--
+  Home page template.
+  Uses Angular's @if directive to conditionally show welcome UI or registration form.
+  registerMode() is a signal function from the component.
+  <app-register> is shown when registerMode() is true, passing membersFromApp as input.
+-->
 <div class="hero bg-base-200 min-h-screen">
 @if (!registerMode()) {
     <div class="hero-conten text-center">
@@ -10,6 +16,7 @@
             <h1 class="text-5xl font-bold">Find your match</h1>
             <p class="py-6">Discover new connections and build meaningful relationships.</p>
             <div class="flex items-center gap-3">
+                <!-- Button calls showRegister() in the component to display the registration form -->
                 <button (click)="showRegister()" class="btn btn-primary btn-lg">Register</button>
                 <button class="btn btn-info btn-lg">Learn More</button>
             </div>
@@ -17,6 +24,7 @@
     </div>
 } @else {
     <div class="text-2xl text-center flex justify-center"></div>
+    <!-- Registration form is shown, passing membersFromApp as input -->
     <app-register [membersFromHome]="membersFromApp" class="w-full"/>
 }
 
