@@ -1,3 +1,7 @@
+/// <summary>
+/// Data Transfer Object for user login.
+/// Used by AccountController to receive login data from frontend.
+/// </summary>
 namespace API.DTOs;
     public class LoginDto
     {
